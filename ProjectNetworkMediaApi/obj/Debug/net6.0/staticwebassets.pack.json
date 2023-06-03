@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\09e83205-940e-4ef9-8a10-05a971c85099.mp4",
+      "PackagePath": "staticwebassets\\images\\09e83205-940e-4ef9-8a10-05a971c85099.mp4"
+    },
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\33017c81-4175-422d-97d8-121585ffefd9.png",
+      "PackagePath": "staticwebassets\\images\\33017c81-4175-422d-97d8-121585ffefd9.png"
+    },
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\490d6afd-9c39-434b-b842-6a6baa3c2013.jpg",
+      "PackagePath": "staticwebassets\\images\\490d6afd-9c39-434b-b842-6a6baa3c2013.jpg"
+    },
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\7a99ab26-c1b3-4282-abc4-1be156f01bd2.png",
+      "PackagePath": "staticwebassets\\images\\7a99ab26-c1b3-4282-abc4-1be156f01bd2.png"
+    },
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\8dbffaaa-c0f6-4546-bbc5-a467897cdae9.png",
+      "PackagePath": "staticwebassets\\images\\8dbffaaa-c0f6-4546-bbc5-a467897cdae9.png"
+    },
+    {
+      "Id": "C:\\Users\\ignja\\Desktop\\ASP\\MojProjekat\\MyProject\\ProjectNetworkMediaApi\\wwwroot\\images\\e040d6f3-5215-4325-8e54-616a37206e86.png",
+      "PackagePath": "staticwebassets\\images\\e040d6f3-5215-4325-8e54-616a37206e86.png"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.ProjectNetworkMediaApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.ProjectNetworkMediaApi.props",
+      "PackagePath": "build\\ProjectNetworkMediaApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.ProjectNetworkMediaApi.props",
+      "PackagePath": "buildMultiTargeting\\ProjectNetworkMediaApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.ProjectNetworkMediaApi.props",
+      "PackagePath": "buildTransitive\\ProjectNetworkMediaApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
