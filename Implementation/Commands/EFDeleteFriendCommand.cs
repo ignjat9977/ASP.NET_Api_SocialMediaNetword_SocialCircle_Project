@@ -1,4 +1,5 @@
-﻿using Application.Commands;
+﻿using Application;
+using Application.Commands;
 using Application.Exceptions;
 using DataAcess;
 using Domain;
@@ -13,10 +14,12 @@ namespace Implementation.Commands
     public class EFDeleteFriendCommand : IDeleteFriendCommand
     {
         private readonly MyDbContext _context;
+        private readonly IApplicationActor _user;
 
-        public EFDeleteFriendCommand(MyDbContext context)
+        public EFDeleteFriendCommand(MyDbContext context, IApplicationActor user)
         {
             _context = context;
+            _user = user;
         }
 
         public int Id => 10;
@@ -25,14 +28,19 @@ namespace Implementation.Commands
 
         public void Execute(int request)
         {
-            var friendToDelete = _context.Friends.Find(request);
+            
+            var friendshipToDelete = _context.Friends.Where(x => x.UserId == _user.Id && x.FriendId == request).FirstOrDefault();
 
-            if(friendToDelete == null)
+            if(friendshipToDelete == null)
             {
-                throw new EntityNotFoundException(request, typeof(Friend));
+                friendshipToDelete = _context.Friends.Where(x=>x.UserId == request && x.FriendId == _user.Id).FirstOrDefault();
+                if(friendshipToDelete == null)
+                {
+                    throw new EntityNotFoundException(request, typeof(Friend));
+                }
             }
 
-            _context.Friends.Remove(friendToDelete);
+            _context.Friends.Remove(friendshipToDelete);
             _context.SaveChanges();
 
 
