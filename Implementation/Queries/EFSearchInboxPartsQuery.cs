@@ -43,45 +43,51 @@ namespace Implementation.Queries
                              || x.Reciver.LastName.ToLower().Contains(request.Keyword.ToLower()));
             }
 
-            return messages.GetResult(request, x => new InboxPartDto
-            {
-                SenderId = x.SenderId,
-                ReciverId = x.ReciverId,
-                SenderName = $"{x.Sender.FirstName} {x.Sender.LastName}",
-                ReciverName = $"{x.Reciver.FirstName} {x.Reciver.LastName}",
-                FirstThreeMessages = messages
-                        .Take(3)
-                        .Where(y => y.ReciverId == x.ReciverId && y.SenderId == x.SenderId)
-                        .Select(c => new MessDto
-                        {
-                            Content = c.Content,
-                            CreatedAt = c.CreatedAt
-                        })
-            });
-            //var skipCount = request.PerPage * (request.Page - 1);
-            //var response = new PageResponse<InboxPartDto>
+            //return messages.GetResult(request, x => new InboxPartDto
             //{
-            //    CurrentPage = request.Page,
-            //    ItemsPerPage = request.PerPage,
-            //    TotalCount = messages.Count(),
-            //    Items = messages.Skip(skipCount).Take(request.PerPage).Select(x=>new InboxPartDto
-            //    {
-            //        SenderId = x.SenderId,
-            //        ReciverId = x.ReciverId,
-            //        SenderName = $"{x.Sender.FirstName} {x.Sender.LastName}",
-            //        ReciverName = $"{x.Reciver.FirstName} {x.Reciver.LastName}",
-            //        FirstThreeMessages = messages
+            //    SenderId = x.SenderId,
+            //    ReciverId = x.ReciverId,
+            //    SenderName = $"{x.Sender.FirstName} {x.Sender.LastName}",
+            //    ReciverName = $"{x.Reciver.FirstName} {x.Reciver.LastName}",
+            //    FirstThreeMessages = messages
             //            .Take(3)
-            //            .Where(y=> y.ReciverId == x.ReciverId && y.SenderId == x.SenderId)
-            //            .Select(c=>new MessDto
+            //            .Where(y => y.ReciverId == x.ReciverId && y.SenderId == x.SenderId)
+            //            .Select(c => new MessDto
             //            {
             //                Content = c.Content,
             //                CreatedAt = c.CreatedAt
-            //            }).ToList()
-            //    }).ToList()
+            //            })
+            //});
 
-            //};
-            //return response;
+
+
+            var skipCount = request.PerPage * (request.Page - 1);
+            var response = new PageResponse<InboxPartDto>
+            {
+                CurrentPage = request.Page,
+                ItemsPerPage = request.PerPage,
+                TotalCount = messages.Count(),
+                Items = messages.OrderByDescending(x=>x.CreatedAt).Select(x => new InboxPartDto
+                {
+                    SenderId = x.SenderId,
+                    ReciverId = x.ReciverId,
+                    SenderName = $"{x.Sender.FirstName} {x.Sender.LastName}",
+                    ReciverName = $"{x.Reciver.FirstName} {x.Reciver.LastName}",
+                    FirstThreeMessages = messages
+                        .Where(y=> (y.SenderId == x.SenderId && y.ReciverId ==  x.ReciverId) 
+                                   || (y.ReciverId == x.SenderId && y.SenderId == x.ReciverId))
+                        .OrderBy(x=>x.CreatedAt)
+                        .Select(c => new MessDto
+                        {
+                            SenderId = c.SenderId,
+                            Sender = c.Sender.FirstName + " " + c.Sender.LastName,
+                            Content = c.Content,
+                            CreatedAt = c.CreatedAt
+                        }).ToList()
+                }).ToList()
+
+            };
+            return response;
         }
     }
 }

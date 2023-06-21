@@ -58,11 +58,18 @@ namespace Implementation.Commands
             else
             {
                 var post = _context.Posts.Find(request.PostId);
-                var reciverIds = _context.UserWalls.Where(x => x.PostId == request.PostId).Select(x => x.User.Id) != null?
-                    _context.UserWalls.Where(x => x.PostId == request.PostId).Select(x => x.User.Id):
-                    _context.GroupPost.Where(x => x.PostId == request.PostId).Select(x => x.User.Id);
+                var userWall = _context.UserWalls.Where(x => x.PostId == request.PostId).Select(x => x.User.Id);
+                var groupWall = _context.GroupPost.Where(x => x.PostId == request.PostId).Select(x => x.User.Id);
+                if(userWall.Any())
+                {
+                    reciverId = userWall.First();
+                }
 
-                reciverId = reciverIds.FirstOrDefault();
+                if (groupWall.Any())
+                {
+                    reciverId = groupWall.First();
+                }
+                
 
                 await SendNotification(reciverId.ToString(), sender, request.Content);
             }

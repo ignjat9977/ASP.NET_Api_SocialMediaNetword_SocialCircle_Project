@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries
 {
-    public interface ISearchPostInGroupQuery : IQuery<SearchPostInGroupDto, PageResponse<PostDto>>
+    public interface ISearchPostInGroupQuery : IQuery<SearchPostInGroupDto, PageResponse<AllPostsDto>>
     {
     }
 }

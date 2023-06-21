@@ -17,6 +17,6 @@ namespace ProjectNetworkMediaApi.Dto
         public int? LikesCounter { get; set; }
         public int? CommentsCounter { get; set; }
         public IEnumerable<CommentDto>? Comments { get; set; }
-        public IEnumerable<bool> WhichFile { get; set; }
+        public IEnumerable<bool>? WhichFile { get; set; }
     }
 }

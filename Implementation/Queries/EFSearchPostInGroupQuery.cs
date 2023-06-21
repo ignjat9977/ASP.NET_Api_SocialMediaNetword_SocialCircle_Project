@@ -30,32 +30,45 @@ namespace Implementation.Queries
 
         public string Name => "Search Post in group using EF command!";
 
-        public PageResponse<PostDto> Execute(SearchPostInGroupDto request)
+        public PageResponse<AllPostsDto> Execute(SearchPostInGroupDto request)
         {
             var posts = _context.Posts.Include(x => x.Likes)
                 .Include(x=>x.GroupPosts)
+                    .ThenInclude(x=>x.User)
+                    .ThenInclude(x=>x.UserProfilePhotos)
+                    .ThenInclude(x=>x.Photo)
                 .Include(x=>x.PhotosVideos)
                 .Include(x => x.Comments)
-                .ThenInclude(x=>x.Likes)
+                    .ThenInclude(x=>x.User)
+                    .ThenInclude(x => x.UserProfilePhotos)
+                    .ThenInclude(x => x.Photo)
+                .Include(x => x.Comments)
+                    .ThenInclude(x=>x.Likes)
                 .AsQueryable();
             
             PropertyInfo[] properties = typeof(SearchPostInGroupDto).GetProperties();
 
             posts = posts.StartFiltering<Post>(properties, request);
 
-            return posts.GetResult(request, x => new PostDto
+            return posts.GetResult(request, x => new AllPostsDto
             {
                 Id = x.Id,
+                Path = x.PhotosVideos.Select(x => x.Path),
                 PrivacyId = x.PrivacyId,
                 Title = x.Title,
                 Content = x.Content,
                 LikesCounter = x.Likes.Count(),
                 CreatedAt = x.CreatedAt,
-                Path = x.PhotosVideos.Select(x => x.Path),
-                Comments = x.Comments.BuildNestedComments(x.Id)
-
+                CommentsCounter = x.Comments.Count(),
+                WhichFile = x.PhotosVideos.Select(x => x.WhichFile),
+                Comments = x.Comments.BuildNestedComments(null),
+                Name = x.GroupPosts.Select(x => new UserNameDto
+                {
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    ImagesPath = x.User.UserProfilePhotos.Select(x => x.Photo.Path)
+                }).FirstOrDefault()
             });
-
             //var skipCount = request.PerPage * (request.Page - 1);
             //var response = new PageResponse<PostDto>
             //{

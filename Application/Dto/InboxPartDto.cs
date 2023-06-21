@@ -17,7 +17,8 @@ namespace Application.Dto
     }
     public class MessDto
     {
-    
+        public string Sender { get; set; }
+        public int SenderId { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
     }

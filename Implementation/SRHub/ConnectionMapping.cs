@@ -9,6 +9,13 @@ namespace ProjectNetworkMediaApi.SRHub
 
         public void Add(UserConnection connection)
         {
+            var previous = _connections.Where(x => x.Key == connection.UserId);
+
+            foreach(var p in previous)
+            {
+                _connections.TryRemove(p);
+            }
+
             _connections.TryAdd(connection.UserId, connection);
         }
 

@@ -45,12 +45,20 @@ namespace ProjectNetworkMediaApi.Controllers
         {
             var connectionId = _connectionMapping.GetConnectionForUser(dto.ReciverId);
 
+            
             int id = int.Parse(dto.SenderId);
             var sender = _context.Users.Find(id);
 
             if (connectionId != null)
             {
-                await _hubContext.Clients.Client(connectionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", dto.Message);
+                try
+                {
+                    await _hubContext.Clients.Client(connectionId).SendAsync("ReceiveMessage", $"{sender.FirstName} {sender.LastName}", dto);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
 
             }
             int rid = int.Parse(dto.ReciverId);

@@ -34,16 +34,16 @@ namespace Implementation.Queries
         {
             var posts = _context.Posts
                                  .Include(x => x.UserWalls)
-                                 .ThenInclude(x => x.User)
-                                 .ThenInclude(x => x.UserProfilePhotos)
-                                 .ThenInclude(x => x.Photo)
+                                     .ThenInclude(x => x.User)
+                                     .ThenInclude(x => x.UserProfilePhotos)
+                                     .ThenInclude(x => x.Photo)
                                  .Include(x => x.Likes)
                                  .Include(x => x.Comments)
-                                 .ThenInclude(x => x.Likes)
-                                 .Include(x => x.Comments)
-                                 .ThenInclude(x => x.User)
-                                 .ThenInclude(x => x.UserProfilePhotos)
-                                 .ThenInclude(x => x.Photo)
+                                    .ThenInclude(x => x.Likes)
+                                     .Include(x => x.Comments)
+                                     .ThenInclude(x => x.User)
+                                     .ThenInclude(x => x.UserProfilePhotos)
+                                     .ThenInclude(x => x.Photo)
                                  .AsQueryable();
 
 

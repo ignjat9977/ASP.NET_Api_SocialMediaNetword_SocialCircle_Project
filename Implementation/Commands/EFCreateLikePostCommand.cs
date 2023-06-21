@@ -49,11 +49,21 @@ namespace Implementation.Commands
             {
                 var post = _context.Posts.Find(request.PostId);
                 //korisnik kome treba da se posalje notifikacija
-                var userIds = _context.UserWalls.Where(x=>x.PostId == request.PostId).Select(x=>x.UserId) != null ?
-                             _context.UserWalls.Where(x => x.PostId == request.PostId).Select(x => x.UserId) :
-                             _context.GroupPost.Where(x => x.PostId == request.PostId).Select(x => x.UserId);
 
-                var userId = userIds.FirstOrDefault();
+                var userWall = _context.UserWalls.Where(x => x.PostId == request.PostId).Select(x => x.User.Id);
+                var groupWall = _context.GroupPost.Where(x => x.PostId == request.PostId).Select(x => x.User.Id);
+
+                int userId = 0;
+                if (userWall.Any())
+                {
+                    userId = userWall.First();
+                }
+
+                if (groupWall.Any())
+                {
+                    userId = groupWall.First();
+                }
+
                 string postDescription = post.Title;
                 //proveravamo da korisnik nije sam sebi lajkovao post
                 if (request.UserId != userId)
