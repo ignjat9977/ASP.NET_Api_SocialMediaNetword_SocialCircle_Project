@@ -64,8 +64,8 @@ namespace Implementation.Commands
 
                     Notification not = new Notification
                     {
-                        IsRead = false,
-                        UserId = (int)userId,
+                        ReciverId = (int)userId,
+                        UserId = sender.Id,
                         Description = $"{sender.FirstName} {sender.LastName}, liked your Comment",
                     };
                     _context.Notifications.Add(not);

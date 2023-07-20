@@ -40,6 +40,11 @@ namespace DataAcess.Configuration
                 .HasForeignKey(x=>x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasMany(x => x.ReciverNotifications)
+                .WithOne(x => x.Reciver)
+                .HasForeignKey(x => x.ReciverId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasMany(x => x.Messages)
                 .WithOne(x => x.Sender)
                 .HasForeignKey(x => x.SenderId)

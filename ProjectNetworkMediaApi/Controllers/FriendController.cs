@@ -53,11 +53,6 @@ namespace ProjectNetworkMediaApi.Controllers
             return StatusCode(201);
         }
 
-        // PUT api/<FriendController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE api/<FriendController>/5
         [HttpDelete("{id}")]

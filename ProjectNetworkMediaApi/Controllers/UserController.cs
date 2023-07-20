@@ -3,6 +3,7 @@ using Application.Commands;
 using Application.Dto;
 using Application.Queries;
 using Microsoft.AspNetCore.Mvc;
+using ProjectNetworkMediaApi.Dto;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,16 +30,9 @@ namespace ProjectNetworkMediaApi.Controllers
             return Ok(_executor.ExecuteQuery(query, dto));
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<UserController>
         [HttpPost]
-        public IActionResult Post([FromBody] UploadProfileImageDto dto,
+        public IActionResult Post([FromForm] UploadProfileImageDto dto,
             [FromServices] ICreateProfileImageCommand command)
         {
             UploadDto dtoForDB = new UploadDto();
@@ -73,14 +67,20 @@ namespace ProjectNetworkMediaApi.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] UserDto dto , [FromServices] IUpdateUserInfoCommand command)
         {
+            _executor.ExecuteCommand(command , dto);
+
+            return NoContent();
         }
 
         // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id,
+            [FromServices] IDeleteUserCommand command)
         {
+            _executor.ExecuteCommand(command, id);
+            return NoContent();
         }
     }
     public class UploadProfileImageDto

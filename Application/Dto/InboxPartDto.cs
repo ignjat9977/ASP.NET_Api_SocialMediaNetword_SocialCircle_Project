@@ -9,11 +9,9 @@ namespace Application.Dto
     public class InboxPartDto
     {
         public int ReciverId { get; set; }
-        public int SenderId { get; set; }
+        public int IdUserNameWhoITextWith { get; set; }
 
-        public string SenderName { get; set; }
-        public string ReciverName { get; set; }
-        public IEnumerable<MessDto> FirstThreeMessages { get; set; }
+        public string UserNameWhoITextWith { get; set; }
     }
     public class MessDto
     {

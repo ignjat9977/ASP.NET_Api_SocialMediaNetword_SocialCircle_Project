@@ -34,7 +34,7 @@ namespace Implementation.Queries
                 .Include(x=>x.Recivers)
                 .FirstOrDefault(x => x.Id == request);
 
-            if (user == null)
+            if (user == null || !user.isActive)
                 throw new EntityNotFoundException(request, typeof(User));
 
             return new UserDto
@@ -44,7 +44,7 @@ namespace Implementation.Queries
                 LastName = user.LastName,
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
-                ImagesPath = user.UserProfilePhotos.Select(x=>x.Photo.Path),
+                ImagesPath = user.UserProfilePhotos.Where(x=>x.Photo.isActive).Select(x=>x.Photo.Path),
                 NumberOfFriends = user.Senters.Count() + user.Recivers.Count()
             };
         }

@@ -29,11 +29,6 @@ namespace ProjectNetworkMediaApi.Controllers
             _context = context;
             _executor = executor;
         }
-        //[HttpGet]
-        //public IActionResult Get([FromQuery] SearchDto dto, [FromServices] ISearchInboxQuery query)
-        //{
-        //    return Ok(_executor.ExecuteQuery(query, dto));
-        //}
         [HttpGet]
         public IActionResult GetInboxParts([FromQuery] SearchDto dto, [FromServices] ISearchInboxPartsQuery query)
         {
@@ -86,4 +81,6 @@ namespace ProjectNetworkMediaApi.Controllers
         public string ReciverId { get; set; }
         public string Message { get; set; }
     }
+
+
 }

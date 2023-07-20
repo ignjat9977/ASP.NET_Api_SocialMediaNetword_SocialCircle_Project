@@ -327,8 +327,8 @@ namespace DataAcess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                    b.Property<int>("ReciverId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -343,6 +343,8 @@ namespace DataAcess.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReciverId");
 
                     b.HasIndex("UserId");
 
@@ -690,7 +692,7 @@ namespace DataAcess.Migrations
                         {
                             Id = 1,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(2023, 6, 1, 20, 51, 53, 945, DateTimeKind.Local).AddTicks(1421),
+                            DateOfBirth = new DateTime(2023, 6, 27, 17, 34, 5, 487, DateTimeKind.Local).AddTicks(4906),
                             Email = "jovan@gmail.com",
                             FirstName = "Jovan",
                             LastName = "Jovanovic",
@@ -702,7 +704,7 @@ namespace DataAcess.Migrations
                         {
                             Id = 2,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(2023, 6, 1, 20, 51, 53, 945, DateTimeKind.Local).AddTicks(1492),
+                            DateOfBirth = new DateTime(2023, 6, 27, 17, 34, 5, 487, DateTimeKind.Local).AddTicks(4959),
                             Email = "petar@gmail.com",
                             FirstName = "Petar",
                             LastName = "Jovanovic",
@@ -714,7 +716,7 @@ namespace DataAcess.Migrations
                         {
                             Id = 3,
                             CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(2023, 6, 1, 20, 51, 53, 945, DateTimeKind.Local).AddTicks(1497),
+                            DateOfBirth = new DateTime(2023, 6, 27, 17, 34, 5, 487, DateTimeKind.Local).AddTicks(4967),
                             Email = "milovan@gmail.com",
                             FirstName = "Milovan",
                             LastName = "Jovanovic",
@@ -918,11 +920,19 @@ namespace DataAcess.Migrations
 
             modelBuilder.Entity("Domain.Notification", b =>
                 {
+                    b.HasOne("Domain.User", "Reciver")
+                        .WithMany("ReciverNotifications")
+                        .HasForeignKey("ReciverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.User", "User")
                         .WithMany("Notifications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Reciver");
 
                     b.Navigation("User");
                 });
@@ -1099,6 +1109,8 @@ namespace DataAcess.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("Notifications");
+
+                    b.Navigation("ReciverNotifications");
 
                     b.Navigation("Recivers");
 

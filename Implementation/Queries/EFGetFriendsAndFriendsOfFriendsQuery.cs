@@ -29,24 +29,24 @@ namespace Implementation.Queries
             var friends = _context.Friends.Include(x=>x.User)
                 .ThenInclude(x=>x.UserProfilePhotos).ThenInclude(x=>x.Photo)
                 .Where(x => x.UserId == request.Id)
-                .Select(x => x.OneFriend).ToList();
+                .Select(x => x.OneFriend).Where(x => x.isActive).ToList();
 
             var recFriends = _context.Friends.Include(x => x.User)
                 .ThenInclude(x => x.UserProfilePhotos).ThenInclude(x => x.Photo)
                 .Where(x => x.FriendId == request.Id)
-                .Select(x => x.User).ToList();
+                .Select(x => x.User).Where(x => x.isActive).ToList();
             friends.AddRange(recFriends);
             var ids = friends.Select(x => x.Id);
 
             var friendOfFriends = _context.Friends.Include(x => x.User)
                 .ThenInclude(x => x.UserProfilePhotos).ThenInclude(x => x.Photo)
                 .Where(x => ids.Contains(x.UserId))
-                .Select(x => x.OneFriend).ToList();
+                .Select(x => x.OneFriend).Where(x => x.isActive).ToList();
 
             var recFriendOfFriends = _context.Friends.Include(x => x.User)
                 .ThenInclude(x => x.UserProfilePhotos).ThenInclude(x => x.Photo)
                 .Where(x => ids.Contains(x.FriendId))
-                .Select(x => x.User).ToList();
+                .Select(x => x.User).Where(x => x.isActive).ToList();
 
             friendOfFriends.AddRange(recFriendOfFriends);
             var fof = friendOfFriends.Except(friends).Distinct().AsQueryable();

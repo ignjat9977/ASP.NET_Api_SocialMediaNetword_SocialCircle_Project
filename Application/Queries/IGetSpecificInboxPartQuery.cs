@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries
 {
-    public interface IGetSpecificInboxPartQuery : IQuery<int, SpecificMessagesDto>
+    public interface IGetSpecificInboxPartQuery : IQuery<int, IEnumerable<SpecificMessagesDto>>
     {
     }
 }

@@ -8,6 +8,11 @@ namespace Application.Dto
 {
     public class SpecificMessagesDto
     {
-        public IEnumerable<MessDto> Messages { get; set; }
+        public int SenderId { get; set; }
+        public int ReciverId { get; set; }
+        public string SenderName { get; set; }
+        public string ReciverName { get; set; }
+        public string Message { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

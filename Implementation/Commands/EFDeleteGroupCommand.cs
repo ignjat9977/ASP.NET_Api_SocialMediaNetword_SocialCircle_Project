@@ -1,4 +1,5 @@
-﻿using Application.Commands;
+﻿using Application;
+using Application.Commands;
 using Application.Exceptions;
 using DataAcess;
 using Domain;
@@ -13,9 +14,11 @@ namespace Implementation.Commands
     public class EFDeleteGroupCommand : IDeleteGroupCommand
     {
         private readonly MyDbContext _context;
+        private readonly IApplicationActor _actor;
 
-        public EFDeleteGroupCommand(MyDbContext context)
+        public EFDeleteGroupCommand(MyDbContext context, IApplicationActor actor)
         {
+            _actor = actor;
             _context = context;
         }
 
@@ -27,10 +30,13 @@ namespace Implementation.Commands
         {
             var group = _context.Groups.Find(request);
 
-            if (group == null)
+            if (group == null || !group.isActive)
                 throw new EntityNotFoundException(request, typeof(Groupp));
 
-            _context.Groups.Remove(group);
+            group.isActive = false;
+            group.DeletedAt = DateTime.UtcNow;
+            group.DeletedBy = _actor.Identity;
+
             _context.SaveChanges();
         }
     }

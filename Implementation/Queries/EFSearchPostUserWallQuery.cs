@@ -48,7 +48,8 @@ namespace Implementation.Queries
             var properties = typeof(SearchPostDto).GetProperties();
 
             posts = posts.StartFiltering<Post>(properties, request);
-
+            posts = posts.OrderByDescending(x => x.CreatedAt);
+            posts = posts.Where(x => x.isActive);
 
             return posts.GetResult(request, x => new PostDto
             {
@@ -65,29 +66,7 @@ namespace Implementation.Queries
 
             });
 
-            //var skipCount = request.PerPage * (request.Page - 1);
-            //var response = new PageResponse<PostDto>
-            //{
-            //    CurrentPage = request.Page,
-            //    ItemsPerPage = request.PerPage,
-            //    TotalCount = posts.Count(),
-            //    Items = posts.Skip(skipCount).Take(request.PerPage).Select(x => new PostDto
-            //    {
-            //        Id = x.Id,
-            //        Path = x.PhotosVideos.Select(x=>x.Path),
-            //        PrivacyId = x.PrivacyId,
-            //        Title = x.Title,
-            //        Content = x.Content,
-            //        LikesCounter = x.Likes.Count(),
-            //        CreatedAt = x.CreatedAt,
-            //        CommentsCounter = x.Comments.Count(),
-            //        WhichFile = x.PhotosVideos.Select(x=>x.WhichFile),
-            //        Comments = x.Comments.BuildNestedComments(null)
-
-            //    }).ToList()
-
-            //};
-            //return response;
+            
         }
 
     }

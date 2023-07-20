@@ -96,7 +96,7 @@ namespace DataAcess
             modelBuilder.Entity<RoleUseCase>().HasKey(p=> new {p.RoleId, p.RoleUseCaseId});
 
             
-            ApplyGlobalFilters(modelBuilder);
+            //ApplyGlobalFilters(modelBuilder);
         }
         private void ApplyGlobalFilters(ModelBuilder modelBuilder)
         {

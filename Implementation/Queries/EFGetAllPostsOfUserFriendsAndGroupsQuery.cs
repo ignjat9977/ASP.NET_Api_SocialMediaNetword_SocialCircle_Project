@@ -50,17 +50,17 @@ namespace Implementation.Queries
 
             var friends = _context.Friends
                 .Where(x => x.UserId == _actor.Id)
-                .Select(x => x.OneFriend).ToList();
+                .Select(x => x.OneFriend).Where(x=>x.isActive).ToList();
 
             var recFriends = _context.Friends
                 .Where(x => x.FriendId == _actor.Id)
-                .Select(x => x.User).ToList();
+                .Select(x => x.User).Where(x => x.isActive).ToList();
             friends.AddRange(recFriends);
             var ids = friends.Select(x => x.Id);
 
             posts = posts
                 .Where(x => x.UserWalls.Any(y => ids.Contains(y.UserId)))
-                .OrderByDescending(x => x.CreatedAt);
+                .OrderBy(x => x.CreatedAt);
 
 
 
@@ -78,41 +78,14 @@ namespace Implementation.Queries
                 Comments = x.Comments.BuildNestedComments(null),
                 Name = x.UserWalls.Select(x => new UserNameDto
                 {
+                    Id = x.User.Id,
                     FirstName = x.User.FirstName,
                     LastName = x.User.LastName,
                     ImagesPath = x.User.UserProfilePhotos.Select(x => x.Photo.Path)
                 }).FirstOrDefault()
             });
 
-            //    var skipCount = request.PerPage * (request.Page - 1);
-            //    var response = new PageResponse<AllPostsDto>
-            //    {
-            //        CurrentPage = request.Page,
-            //        ItemsPerPage = request.PerPage,
-            //        TotalCount = posts.Count(),
-            //        Items = posts.Skip(skipCount).Take(request.PerPage).Select(x => new AllPostsDto
-            //        {
-            //            Id = x.Id,
-            //            Path = x.PhotosVideos.Select(x => x.Path),
-            //            PrivacyId = x.PrivacyId,
-            //            Title = x.Title,
-            //            Content = x.Content,
-            //            LikesCounter = x.Likes.Count(),
-            //            CreatedAt = x.CreatedAt,
-            //            CommentsCounter = x.Comments.Count(),
-            //            WhichFile = x.PhotosVideos.Select(x => x.WhichFile),
-            //            Comments = x.Comments.BuildNestedComments(null),
-            //            Name = x.UserWalls.Select(x=>new UserNameDto
-            //            {
-            //                FirstName = x.User.FirstName,
-            //                LastName = x.User.LastName,
-            //                ImagesPath = x.User.UserProfilePhotos.Select(x=>x.Photo.Path)
-            //            }).FirstOrDefault()
-            //        }).ToList()
-
-            //    };
-            //    return response;
-            //}
+           
         }
     }
 }

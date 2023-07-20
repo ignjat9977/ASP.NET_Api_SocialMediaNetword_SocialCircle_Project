@@ -36,9 +36,9 @@ namespace Implementation.Commands
                 throw new EntityNotFoundException(request, typeof(Post));
             }
 
+            postToDelete.isActive = false;
             postToDelete.DeletedAt = DateTime.UtcNow;
             postToDelete.DeletedBy = _actor.Identity;
-            postToDelete.isActive = false;
             _context.SaveChanges();
 
 

@@ -37,6 +37,7 @@ namespace Implementation.Queries
                 var keyword = request.Keyword.ToLower();
                 users = users.Where(x => x.FirstName.ToLower().Contains(keyword) || x.LastName.ToLower().Contains(keyword));
             }
+            users = users.Where(x => x.isActive);
 
             return users.GetResult(request, x => new UserDto
             {
@@ -49,27 +50,6 @@ namespace Implementation.Queries
                 RoleId = x.RoleId
 
             });
-
-            //var skipCount = request.PerPage * (request.Page - 1);
-            //var response = new PageResponse<UserDto>
-            //{
-            //    CurrentPage = request.Page,
-            //    ItemsPerPage = request.PerPage,
-            //    TotalCount = users.Count(),
-            //    Items = users.Skip(skipCount).Take(request.PerPage).Select(x => new UserDto
-            //    {
-            //        Id= x.Id,
-            //        FirstName = x.FirstName,
-            //        LastName = x.LastName,
-            //        ImagesPath = x.UserProfilePhotos.Select(x=>x.Photo.Path),
-            //        DateOfBirth = x.DateOfBirth,
-            //        Email = x.Email,
-            //        RoleId = x.RoleId
-
-            //    }).ToList()
-
-            //};
-            //return response;
         }
     }
 }

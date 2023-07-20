@@ -75,8 +75,8 @@ namespace Implementation.Commands
             }
             Notification not = new Notification
             {
-                IsRead = false,
-                UserId = reciverId,
+                ReciverId = reciverId,
+                UserId = sender.Id,
                 Description = $"{sender.FirstName} {sender.LastName} Repost you with: {request.Content}"
             };
 

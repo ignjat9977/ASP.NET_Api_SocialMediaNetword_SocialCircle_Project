@@ -49,15 +49,15 @@ namespace Implementation.Commands
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            _emailSender.Send(new EmailSendDto
-            {
-                Content = "<h1>Successffuly registred!</h1>",
-                Created = DateTime.UtcNow,
-                SendTo = request.Email,
-                Subject = "Registracion"
-            });
+            //_emailSender.Send(new EmailSendDto
+            //{
+            //    Content = "<h1>Successffuly registred!</h1>",
+            //    Created = DateTime.UtcNow,
+            //    SendTo = request.Email,
+            //    Subject = "Registracion"
+            //});
 
 
-    }
+        }
     }
 }

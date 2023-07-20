@@ -35,7 +35,7 @@ namespace Implementation.Queries
             {
                 groups = groups.Where(x => x.Name.ToLower().Contains(request.Keyword.ToLower()));
             }
-
+            groups = groups.Where(x => x.isActive);
             return groups.GetResult(request, x => new GroupDto
             {
                 Id = x.Id,
@@ -43,24 +43,6 @@ namespace Implementation.Queries
                 Name = x.Name,
                 Description = x.Description
             });
-            //var skipCount = request.PerPage * (request.Page - 1);
-            //var response = new PageResponse<GroupDto>
-            //{
-            //    CurrentPage = request.Page,
-            //    ItemsPerPage = request.PerPage,
-            //    TotalCount = groups.Count(),
-            //    Items = groups.Skip(skipCount).Take(request.PerPage).Select(x => new GroupDto
-            //    {
-            //        Id = x.Id,
-            //        PrivacyId = x.PrivacyId,
-            //        Name = x.Name,
-            //        Description = x.Description
-
-
-            //    }).ToList()
-
-            //};
-            //return response;
         }
     }
 }

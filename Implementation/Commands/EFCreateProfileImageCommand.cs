@@ -38,7 +38,12 @@ namespace Implementation.Commands
                 UserId = request.UserId,
                 Created = DateTime.Now
             };
+            var beforePhotos = _context.UserProfilePhotos.Where(x=>x.UserId == request.UserId).Select(x => x.Photo);
 
+            foreach(var beforePhoto in beforePhotos)
+            {
+                beforePhoto.isActive = false;
+            }
             _context.PhotosVideos.Add(photo);
             _context.UserProfilePhotos.Add(userProfileImage);
             _context.SaveChanges();

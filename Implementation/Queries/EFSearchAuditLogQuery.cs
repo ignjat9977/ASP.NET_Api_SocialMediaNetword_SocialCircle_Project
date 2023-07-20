@@ -45,24 +45,7 @@ namespace Implementation.Queries
                 Date = x.CreatedAt,
                 UseCaseName = x.UseCaseName
             });
-            //var skipCount = request.PerPage * (request.Page - 1);
-            //var response = new PageResponse<UseCaseLogDto>
-            //{
-            //    CurrentPage = request.Page,
-            //    ItemsPerPage = request.PerPage,
-            //    TotalCount = log.Count(),
-            //    Items = log.Skip(skipCount).Take(request.PerPage).Select(x => new UseCaseLogDto
-            //    {
-            //        Id = x.Id,
-            //        Actor = x.Actor,
-            //        Data = x.Data,
-            //        Date = x.CreatedAt,
-            //        UseCaseName = x.UseCaseName
-
-            //    }).ToList()
-
-            //};
-            //return response;
+           
         }
     }
 }

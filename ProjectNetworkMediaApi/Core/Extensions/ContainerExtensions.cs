@@ -21,6 +21,7 @@ namespace ProjectNetworkMediaApi.Core.Extensions
             services.AddTransient<CreateCommentValidator>();
             services.AddTransient<CreateGroupValidator>();
             services.AddTransient<CreatePostOrVideoInGroupValidator>();
+            services.AddTransient<CreateReportValidator>();
             services.AddTransient<CreateFriendValidator>();
         }
         public static void AddCommands(this IServiceCollection services)
@@ -40,6 +41,14 @@ namespace ProjectNetworkMediaApi.Core.Extensions
             services.AddTransient<IDeleteGroupCommand, EFDeleteGroupCommand>();
             services.AddTransient<ICreatePostGroupPostCommand, EFCreatePostGroupPostCommand>();
             services.AddTransient<ICreateProfileImageCommand, EFCreateProfileImageCommand>();
+            services.AddTransient<IDeleteUserCommand, EFDeleteUserCommand>();
+            services.AddTransient<ICreateReportCommand, EFCreateReportCommand>();
+            services.AddTransient<IUpdateUserInfoCommand, EFUpdateUserInfoCommand>();
+            services.AddTransient<IDeleteNotificationCommand, EFDeleteNotificationCommand>();
+            services.AddTransient<ICreateGroupMemberCommand, EFCreateGroupMemberCommand>();
+            services.AddTransient<IDeleteGroupMemberCommand, EFDeleteGroupMemberCommand>();
+            services.AddTransient<ISetProfilePhotoActiveCommand, EFSetProfilePhotoActiveCommand>();
+            services.AddTransient<IDeleteProfilePhotoCommand, EFDeleteProfilePhotoCommand>();
         }
         public static void AddQueries(this IServiceCollection services)
         {
@@ -55,6 +64,10 @@ namespace ProjectNetworkMediaApi.Core.Extensions
             services.AddTransient<IGetSpecificInboxPartQuery, EFGetSpecificInboxPartQuery>();
             services.AddTransient<ISearchAuditLogQuery, EFSearchAuditLogQuery>();
             services.AddTransient<IGetAllPostsOfUserFriendsAndGroupsQuery, EFGetAllPostsOfUserFriendsAndGroupsQuery>();
+            services.AddTransient<ISearchReportsQuery, EFSearchReportsQuery>();
+            services.AddTransient<ISearchAllNotificationsQuery, EFSearchAllNotificationsQuery>();
+            services.AddTransient<IGetAllGroupMembersByIdQuery, EFGetAllGroupMembersByIdQuery>();
+            services.AddTransient<IGetAllProfilePhotosQuery, EFGetAllProfilePhotosQuery>();
         }
         public static void AddJwt(this IServiceCollection services, AppSettings settings)
         {

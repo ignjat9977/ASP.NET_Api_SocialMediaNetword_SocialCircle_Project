@@ -11,6 +11,8 @@ namespace Domain
         public string Description { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public bool IsRead { get; set; }
+        public int ReciverId { get; set; }
+
+        public User Reciver { get; set; }
     }
 }

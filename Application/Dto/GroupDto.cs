@@ -13,5 +13,6 @@ namespace Application.Dto
         public string Description { get; set; }
         public int PrivacyId { get; set; }
         public DateTime? CreatedAt { get; set; }
+        
     }
 }

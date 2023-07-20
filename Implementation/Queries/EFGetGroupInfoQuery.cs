@@ -28,7 +28,7 @@ namespace Implementation.Queries
         {
             var group = _context.Groups.Find(request);
 
-            if (group == null)
+            if (group == null || !group.isActive)
                 throw new EntityNotFoundException(request, typeof(Groupp));
 
             return new GroupDto
